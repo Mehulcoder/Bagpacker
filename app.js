@@ -5,6 +5,8 @@ var bodyParser = require("body-parser");
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
+// Tell our code that the css file and JS file will be included in the public folder
+app.use(express.static("public"));
 
 app.get("/", function (req, res) {
     res.render("landing");  

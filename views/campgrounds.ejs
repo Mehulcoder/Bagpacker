@@ -1,17 +1,36 @@
 <%- include("partials/header") %> 
 
-<h1>This is the campgrounds page</h1>
-<a href="/campgrounds/new"> Add a new campground </a>
-<br>
-<br>
-<%  campgrounds.forEach(function(campground){ %>
-    <div>
-        <h4>
-           <%= campground.Name  %> 
-        </h4>
-        <img src= <%=campground.Image%> >
+<!-- Add everything inside the bootstrap container -->
+<div class="container">
+    
+    <div class="jumbotron"> 
+        <div class="container">
+
+            <h1>This is the campgrounds page</h1>
+            <p>View one of the best campgrounds from all over the world</p>
+            <a class="btn btn-primary btn-lg" href="/campgrounds/new"> Add a new campground </a>
+        
+        </div>
     </div>
-<% }); %>
+    
+    
+    <div class="row">
+        
+        <%  campgrounds.forEach(function(campground){ %>
+
+            <div class="col-lg-4 md-6" >
+                <div class="img-thumbnail">
+                    <img src= <%=campground.Image%> >
+                </div>
+                
+            </div>
+
+        <% }); %>
+
+    </div>
+    
+
+</div>
 
 
 <%- include('partials/footer') %>
