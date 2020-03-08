@@ -1,5 +1,16 @@
 img{
     max-width: 100%;
-    width: auto;
+    height: auto;
+    /* width: auto; */
 }
 
+.row{
+    /* border: 1px solid red; */
+    display: flex;
+    flex-wrap: wrap;
+}
+.my_col{
+    margin-bottom: 20px;
+
+    /* border: 1px solid green; */
+}

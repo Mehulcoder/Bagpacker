@@ -15,7 +15,13 @@ app.get("/", function (req, res) {
 var campgrounds = [
     {Name: "Rainbow Beach", Image: "https://images.pexels.com/photos/2255866/pexels-photo-2255866.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"},
     {Name: "Indonasia", Image: "https://images.pexels.com/photos/3699347/pexels-photo-3699347.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"},
-    {Name: "Japan", Image: "https://images.pexels.com/photos/1822605/pexels-photo-1822605.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"}
+    {Name: "Japan", Image: "https://images.pexels.com/photos/1822605/pexels-photo-1822605.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"},
+    {Name: "Rainbow Beach", Image: "https://images.pexels.com/photos/2255866/pexels-photo-2255866.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"},
+    // {Name: "Indonasia", Image: "https://images.pexels.com/photos/3699347/pexels-photo-3699347.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"},
+    {Name: "Rainbow Beach", Image: "https://images.pexels.com/photos/2255866/pexels-photo-2255866.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"},
+    {Name: "Indonasia", Image: "https://images.pexels.com/photos/3699347/pexels-photo-3699347.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"},
+    {Name: "Rainbow Beach", Image: "https://images.pexels.com/photos/2255866/pexels-photo-2255866.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"},
+    {Name: "Indonasia", Image: "https://images.pexels.com/photos/3699347/pexels-photo-3699347.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"},
     
 ];
 
