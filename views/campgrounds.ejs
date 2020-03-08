@@ -1,28 +1,28 @@
 <%- include("partials/header") %> 
 
+
 <!-- Add everything inside the bootstrap container -->
 <div class="container">
     
     <div class="jumbotron"> 
         <div class="container">
-
             <h1>This is the campgrounds page</h1>
             <p>View one of the best campgrounds from all over the world</p>
             <a class="btn btn-primary btn-lg" href="/campgrounds/new"> Add a new campground </a>
-        
         </div>
     </div>
     
     
     <div class="row justify-content-center">
           <%  campgrounds.forEach(function(campground){ %>
-
+            <!-- Responsive columns with elements aligned center -->
             <div class="col-lg-4 col-md-6 my_col align-self-center" >
+                <!-- Border/Thumbnail added to give a nicer look. Shadows addded by my choice -->
                 <div class="img-thumbnail  shadow">
                     <img class="img-fluid shadow-sm" src= <%=campground.Image%> >
+                    <!-- Caption added, centered -->
                     <h5><div class="caption text-center p-2"><%= campground.Name%> </div></h5>
-                </div>
-                
+                </div> 
             </div>
 
         <% }); %>
