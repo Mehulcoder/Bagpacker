@@ -1,15 +1,39 @@
 <%- include("partials/header") %> 
 
 <div class="container">
-    <h1>Create a new campground</h1>
-    <br>
-    <a href="/campgrounds"> Go back </a>
 
-    <form action="/campgrounds" method="POST">
-        <input type="text" name="name" placeholder="Name">
-        <input type="text" name="image" placeholder="Image URL">
-        <button>Submit</button>
-    </form>
+    <h1 class="d-flex justify-content-center mt-4">Create a new campground</h1>
+
+
+    <div class="form-group">
+        <form action="/campgrounds" method="POST" >
+            <div class="row justify-content-center">
+                <div class="col-4 align-self-center mb-2">
+                    <input type="text" name="name" placeholder="Name" class="form-control mb-1">
+                    <input type="text" name="image" placeholder="Image URL" class="form-control">
+
+                </div>
+            </div>
+            
+            <div class="row justify-content-center">
+                <div class="col-4">
+                    <button type="button justify-content-center" class="btn btn-primary btn-block">Submit</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-4">
+                </div>
+
+                <div class="col-4">
+                    <a href="/campgrounds"> Go back </a>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    
 </div>
 
 
