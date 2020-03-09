@@ -1,4 +1,10 @@
+body{
+    font-family: "Spartan";
+}
 
+.caption{
+    font-size: medium;
+}
 
 img{
     max-width: 100%;
