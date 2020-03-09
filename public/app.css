@@ -1,6 +1,4 @@
-body{
-    font-family: "Spartan"; !important
-}
+
 
 img{
     max-width: 100%;
@@ -23,6 +21,16 @@ img{
     /* border: 1px solid red; */
 }
 
-a:hover{
-    font-weight: 600;
+.btn:hover{
+    background: #440c50;
 }
+
+.jumbotron{
+    background: #7BCEE0 !important;
+}
+
+.btn{
+    background: #683872;
+    border: none;
+}
+

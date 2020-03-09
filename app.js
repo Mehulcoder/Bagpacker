@@ -2,24 +2,46 @@ var express = require("express");
 var app = express();
 var request = require("request");
 var bodyParser = require("body-parser");
+var mongoose = require("mongoose");
 
+// Connect mongoose
+mongoose.connect("mongodb://localhost/yelp_camp");
 app.use(bodyParser.urlencoded({extended: true}));
-app.set("view engine", "ejs");
-// Tell our code that the css file and JS file will be included in the public folder
 app.use(express.static("public"));
+app.set("view engine", "ejs");
+
+// Schema setup
+var campgroundSchema = new mongoose.Schema({
+    Name: String,
+    Image: String
+});
+
+//Mongoose will automatically make the 'C' to 'c' //And the var below(Campground) will be used for create
+//We now have the "campgrounds" collection in our database
+var Campground  = mongoose.model("Campground", campgroundSchema);
+
+//Adding the first element
+//We will use all the functions like-->Campground.function()
+// console.log(Campground);---->model{ Campground }
+
+
+// Tell our code that the css file and JS file will be included in the public folder
+
 
 app.get("/", function (req, res) {
     res.render("landing");  
 });
 
-var campgrounds = [
-    {Name: "Rainbow Beach", Image: "https://images.pexels.com/photos/2255866/pexels-photo-2255866.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"}
-];
-
-app.get("/campgrounds", function (req, res) {  
-    
-
-    res.render("campgrounds", {campgrounds: campgrounds});
+app.get("/campgrounds", function (req, res) {
+        //Get all the campgrounds from the database and call it allcampgrounds
+        Campground.find({}, function (err, allcampgrounds) {
+        if(err){
+            console.log(err);
+        }else{
+            res.render("campgrounds", {campgrounds:allcampgrounds});
+            //Pass allcampgrounds fetced as campgrounds to the render
+        }
+     });
 });
 
 
@@ -31,7 +53,15 @@ app.post("/campgrounds", function (req, res) {
     var name = req.body.name;
     var url = req.body.image;
     var newcampground = {Name:name, Image:url};
-    campgrounds.push(newcampground);
+
+    Campground.create(newcampground, function (err, newcamp) { 
+        if(err){
+            console.log(err);
+        }else{
+            console.log("New Campground added");
+            console.log(newcamp);
+        }
+     });
 
     res.redirect("/campgrounds");
 

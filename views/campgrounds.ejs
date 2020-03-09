@@ -4,13 +4,13 @@
 <!-- Add everything inside the bootstrap container -->
 <div class="container">
     
-    <div class="jumbotron mt-3"> 
+    <div class="jumbotron mt-3 shadow"> 
         <div class="container">
             <div class="row justify-content-center">
-                <h1 >This is the campgrounds page</h1>
+                <h1 style="color:rgb(255, 255, 255)">This is the campgrounds page</h1>
             </div>
             <div class="row justify-content-center">
-                <p>View one of the best campgrounds from all over the world</p>
+                <p style="color:rgb(255, 255, 255)">View one of the best campgrounds from all over the world</p>
             </div>
             <div class="row justify-content-center">
                 <a class="btn btn-primary btn-lg shadow" href="/campgrounds/new"> Add a new campground </a>
@@ -20,6 +20,7 @@
     
     
     <div class="row justify-content-center">
+        
           <%  campgrounds.forEach(function(campground){ %>
             <!-- Responsive columns with elements aligned center -->
             <div class="col-lg-4 col-md-6 my_col align-self-center" >
