@@ -13,7 +13,8 @@ app.set("view engine", "ejs");
 // Schema setup
 var campgroundSchema = new mongoose.Schema({
     Name: String,
-    Image: String
+    Image: String,
+    Desc: String
 });
 
 //Mongoose will automatically make the 'C' to 'c' //And the var below(Campground) will be used for create
@@ -32,7 +33,7 @@ app.get("/", function (req, res) {
     res.render("landing");  
 });
 
-app.get("/campgrounds", function (req, res) {
+app.get("/index", function (req, res) {
         //Get all the campgrounds from the database and call it allcampgrounds
         Campground.find({}, function (err, allcampgrounds) {
         if(err){
@@ -46,13 +47,14 @@ app.get("/campgrounds", function (req, res) {
 
 
 
-app.post("/campgrounds", function (req, res) {
+app.post("/index", function (req, res) {
     //Get data from form and add it to campgrounds array
     //Redirect back to campgrounds list page
 
     var name = req.body.name;
     var url = req.body.image;
-    var newcampground = {Name:name, Image:url};
+    var desc = req.body.desc;
+    var newcampground = {Name:name, Image:url, Desc:desc};
 
     Campground.create(newcampground, function (err, newcamp) { 
         if(err){
@@ -61,15 +63,28 @@ app.post("/campgrounds", function (req, res) {
             console.log("New Campground added");
             console.log(newcamp);
         }
-     });
+    });
 
-    res.redirect("/campgrounds");
+    res.redirect("/index");
 
 });
 
-app.get("/campgrounds/new", function (req, res) { 
+
+app.get("/index/new", function (req, res) { 
     //This is the place to fill the form
     res.render("new");
+ });
+
+//SHOW ROUTE
+ app.get("/index/:id", function (req, res) {
+     Campground.findById(req.params.id, function (err, foundCampground) { 
+         if(err){
+             console.log(err);
+         }else{
+             console.log(foundCampground);
+            res.render("show", {campground:foundCampground});
+         }
+      });
  });
 
 app.listen(3000, function () {  

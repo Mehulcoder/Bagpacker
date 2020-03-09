@@ -13,22 +13,30 @@
                 <p style="color:rgb(255, 255, 255)">View one of the best campgrounds from all over the world</p>
             </div>
             <div class="row justify-content-center">
-                <a class="btn btn-primary btn-lg shadow" href="/campgrounds/new"> Add a new campground </a>
+                <a class="btn btn-primary btn-lg shadow" href="/index/new"> Add a new campground </a>
             </div>
         </div>
     </div>
     
     
-    <div class="row justify-content-center">
+    <div class="row justify-content-center text-center">
         
           <%  campgrounds.forEach(function(campground){ %>
+          
             <!-- Responsive columns with elements aligned center -->
             <div class="col-lg-4 col-md-6 my_col align-self-center" >
+          
                 <!-- Border/Thumbnail added to give a nicer look. Shadows addded by my choice -->
-                <div class="img-thumbnail  shadow">
+                <div class="img-thumbnail shadow">
                     <img class="img-fluid shadow-sm" src= <%=campground.Image%> >
+          
                     <!-- Caption added, centered -->
-                    <h5><div class="caption text-center p-2"><%= campground.Name%> </div></h5>
+                    <div class="caption p-2">
+                        <h6><%= campground.Name%></h6> 
+                    </div>
+                    <p>
+                        <a href="/index/<%=campground._id%>" class = "caption btn btn-primary">More Info</a>
+                    </p>
                 </div> 
             </div>
 
