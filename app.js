@@ -5,6 +5,7 @@ var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 //requiring seedsDB
 var Campground = require("./models/campground");
+var Comment = require("./models/comment");
 var seedDB = require("./seeds");
 
 // Connect mongoose
@@ -15,7 +16,6 @@ app.use(express.static("public"));
 app.set("view engine", "ejs");
 
 seedDB();
-
 
 // Start routing
 app.get("/", function (req, res) {
@@ -29,14 +29,14 @@ app.get("/index", function (req, res) {
         if(err){
             console.log(err);
         }else{
-            res.render("index", {campgrounds:allcampgrounds});
+            res.render("campgrounds/index", {campgrounds:allcampgrounds});
             //Pass allcampgrounds fetched as campgrounds to the render
         }
      });
 });
 
 
- // CREATE -- add new campground
+ // CREATE-----> add new campground
  app.post("/index", function (req, res) {
     //Get data from form and add it to campgrounds array
     //Redirect back to campgrounds list page
@@ -63,21 +63,62 @@ app.get("/index", function (req, res) {
 // NEW------->Show form to create new campground
 app.get("/index/new", function (req, res) { 
     //This is the place to fill the form
-    res.render("new");
+    res.render("campgrounds/new");
  });
 
 
 //SHOW -- show more information for the perticular id
  app.get("/index/:id", function (req, res) {
-     Campground.findById(req.params.id, function (err, foundCampground) { 
+     Campground.findById(req.params.id).populate("Comments").exec(function (err, foundCampground) { 
          if(err){
              console.log(err);
          }else{
              console.log(foundCampground);
-            res.render("show", {campground:foundCampground});
+            res.render("campgrounds/show", {campground:foundCampground});
          }
       });
  });
+
+ // ==============
+// Comments Routes
+// ==============
+
+app.get("/index/:id/comments/new", function (req, res) { 
+    Campground.findById(req.params.id, function (err, campground) { 
+        if (err) {
+            console.log(err);
+        }else{
+            res.render("comments/new", {campground:campground});
+        }
+     });
+ });
+
+ app.post("/index/:id/comments", function (req, res) { 
+   
+    console.log(req.params.id);
+    Campground.findById(req.params.id, function (err, campground) {
+        if (err) {
+            console.log("Could not find the ID");
+            console.log(err);
+            console.log(req.body.comment);
+            res.redirect("/index");
+        }else{
+            Comment.create(req.body.comment,function (err, comment) { 
+                if (err) {
+                    console.log("Comment waala error");
+                    console.log(err);
+                    req.redirect("/index");
+                }else{
+                    campground.Comments.push(comment);
+                    campground.save();
+                    res.redirect("/index/"+campground._id);
+                };
+                });
+
+        }
+        
+    });
+    });
 
 app.listen(3000, function () {  
     console.log("Project works fine");

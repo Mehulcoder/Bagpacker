@@ -1,19 +1,17 @@
-<%- include("partials/header") %> 
+<%- include("../partials/header") %> 
 
 <div class="container">
     <!-- Heading -->
-    <h1 class="d-flex justify-content-center mt-4">Create a new campground</h1>
+    <h1 class="d-flex justify-content-center mt-4">Add new comment to <%= campground.Name %> </h1>
 
 <!-- Form starts here -->
     <div class="form-group">
-        <form action="/index" method="POST" >
+        <form action="/index/<%=campground._id %>/comments" method="POST" >
             <div class="row justify-content-center">
                 <div class="col-4 align-self-center mb-2">
                     <!-- Two inputs will be taken -->
-                    <input type="text" name="name" placeholder="Name" class="form-control mb-1">
-                    <input type="text" name="image" placeholder="Image URL" class="form-control mb-1">
-                    <input type="text" name="desc" placeholder="Description" class="form-control">
-
+                    <input type="text" name="comment[content]" placeholder="Text" class="form-control mb-1">
+                    <input type="text" name="comment[author]" placeholder="Author" class="form-control mb-1">
                 </div>
             </div>
             
@@ -40,4 +38,4 @@
 </div>
 
 
-<%- include("partials/footer") %> 
+<%- include("../partials/footer") %> 
