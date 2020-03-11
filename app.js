@@ -12,7 +12,8 @@ var seedDB = require("./seeds");
 mongoose.connect("mongodb://localhost:27017/yelp_camp", {useNewUrlParser: true, useUnifiedTopology: true});
 
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static("public"));
+app.use(express.static(__dirname+"/public"));
+// console.log(__dirname);
 app.set("view engine", "ejs");
 
 seedDB();
@@ -112,7 +113,7 @@ app.get("/index/:id/comments/new", function (req, res) {
                     campground.Comments.push(comment);
                     campground.save();
                     res.redirect("/index/"+campground._id);
-                };
+                }
                 });
 
         }

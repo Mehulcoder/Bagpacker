@@ -1,0 +1,42 @@
+body{
+    font-family: "Spartan";
+}
+
+.caption{
+    font-size: medium;
+}
+
+img{
+    max-width: 100%;
+    height: auto;
+    /* width: auto; */
+}
+
+.row{
+    /* border: 1px solid red; */
+    display: flex;
+    flex-wrap: wrap;
+}
+.my_col{
+    margin-bottom: 20px;
+
+    /* border: 1px solid green; */
+}
+
+.col-6{
+    /* border: 1px solid red; */
+}
+
+.btn:hover{
+    background: #440c50;
+}
+
+.jumbotron{
+    background: #7BCEE0 !important;
+}
+
+.btn{
+    background: #683872;
+    border: none;
+}
+
