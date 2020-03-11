@@ -3,36 +3,26 @@ var app = express();
 var request = require("request");
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
+//requiring seedsDB
+var Campground = require("./models/campground");
+var seedDB = require("./seeds");
 
 // Connect mongoose
-mongoose.connect("mongodb://localhost/yelp_camp");
+mongoose.connect("mongodb://localhost:27017/yelp_camp", {useNewUrlParser: true, useUnifiedTopology: true});
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 
-// Schema setup
-var campgroundSchema = new mongoose.Schema({
-    Name: String,
-    Image: String,
-    Desc: String
-});
-
-//Mongoose will automatically make the 'C' to 'c' //And the var below(Campground) will be used for create
-//We now have the "campgrounds" collection in our database
-var Campground  = mongoose.model("Campground", campgroundSchema);
-
-//Adding the first element
-//We will use all the functions like-->Campground.function()
-// console.log(Campground);---->model{ Campground }
+seedDB();
 
 
-// Tell our code that the css file and JS file will be included in the public folder
-
-
+// Start routing
 app.get("/", function (req, res) {
     res.render("landing");  
 });
 
+// INDEX----->Show all campgrounds
 app.get("/index", function (req, res) {
         //Get all the campgrounds from the database and call it allcampgrounds
         Campground.find({}, function (err, allcampgrounds) {
@@ -40,14 +30,14 @@ app.get("/index", function (req, res) {
             console.log(err);
         }else{
             res.render("index", {campgrounds:allcampgrounds});
-            //Pass allcampgrounds fetced as campgrounds to the render
+            //Pass allcampgrounds fetched as campgrounds to the render
         }
      });
 });
 
 
-
-app.post("/index", function (req, res) {
+ // CREATE -- add new campground
+ app.post("/index", function (req, res) {
     //Get data from form and add it to campgrounds array
     //Redirect back to campgrounds list page
 
@@ -70,12 +60,14 @@ app.post("/index", function (req, res) {
 });
 
 
+// NEW------->Show form to create new campground
 app.get("/index/new", function (req, res) { 
     //This is the place to fill the form
     res.render("new");
  });
 
-//SHOW ROUTE
+
+//SHOW -- show more information for the perticular id
  app.get("/index/:id", function (req, res) {
      Campground.findById(req.params.id, function (err, foundCampground) { 
          if(err){
