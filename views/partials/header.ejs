@@ -37,15 +37,21 @@
     <div class="collapse navbar-collapse" id="collapsibleNavId">
         <!-- ml-auto will create auto left margin and align items to the right -->
         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-            <li class="nav-item">
-                <a class="nav-link" href="/login">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/logout">Logout</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/register">Register</a>
-            </li>
+            <%  if(!currentUser){  %>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/register">Register</a>
+                </li>
+            <% }else{  %>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"> Signed in as Mehul </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+                <%}%>
         </ul>
     </div>
 </nav>

@@ -28,6 +28,15 @@ app.use(require("express-session")({
     saveUninitialized: false
 }));
 
+//SO that we do not have to add it to every route
+/////////
+//NEW///
+///////
+app.use(function(req, res, next){
+    res.locals.currentUser = req.user;
+    next();
+ });
+
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
@@ -40,13 +49,14 @@ app.get("/", function (req, res) {
 });
 
 // INDEX----->Show all campgrounds
+//At last we'll pass the user data(id and name) to the index page
 app.get("/index", function (req, res) {
         //Get all the campgrounds from the database and call it allcampgrounds
         Campground.find({}, function (err, allcampgrounds) {
         if(err){
             console.log(err);
         }else{
-            res.render("campgrounds/index", {campgrounds:allcampgrounds});
+            res.render("campgrounds/index", {campgrounds:allcampgrounds, currentUser:req.user});
             //Pass allcampgrounds fetched as campgrounds to the render
         }
      });
