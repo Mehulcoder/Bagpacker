@@ -3,6 +3,9 @@ var app = express();
 var request = require("request");
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
+var passport = require("passport"),
+    User = require("./models/user"),
+    LocalStrategy = require("passport-local");
 //requiring seedsDB
 var Campground = require("./models/campground");
 var Comment = require("./models/comment");
@@ -17,6 +20,19 @@ app.use(express.static(__dirname+"/public"));
 app.set("view engine", "ejs");
 
 seedDB();
+
+//Passport configuration
+app.use(require("express-session")({
+    secret: "Once again rusty is the cutest dog",
+    resave: false,
+    saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // Start routing
 app.get("/", function (req, res) {
@@ -83,8 +99,7 @@ app.get("/index/new", function (req, res) {
  // ==============
 // Comments Routes
 // ==============
-
-app.get("/index/:id/comments/new", function (req, res) { 
+app.get("/index/:id/comments/new", isLoggedIn, function (req, res) { 
     Campground.findById(req.params.id, function (err, campground) { 
         if (err) {
             console.log(err);
@@ -94,7 +109,8 @@ app.get("/index/:id/comments/new", function (req, res) {
      });
  });
 
- app.post("/index/:id/comments", function (req, res) { 
+ //Add isLoggedIn to prevent from getting requests through postman
+ app.post("/index/:id/comments",isLoggedIn, function (req, res) { 
    
     console.log(req.params.id);
     Campground.findById(req.params.id, function (err, campground) {
@@ -119,7 +135,69 @@ app.get("/index/:id/comments/new", function (req, res) {
         }
         
     });
+});
+
+//////////////
+//Auth routes
+////////////
+
+//Show register form
+app.get("/register", function (req, res) { 
+    res.render("register");
+});
+
+////////////
+///IMPORTANT
+///////////
+//Handle Sign up logic
+app.post("/register", function (req, res) { 
+    var newUser = new User({username: req.body.username});
+    User.register(newUser , req.body.password, function (err, user) {  
+        if(err){
+            console.log(err);
+            return res.render("register");
+        }else{
+            passport.authenticate("local")(req, res, function(){
+                res.redirect("/index");
+            });
+        }
     });
+});
+
+
+//Handle sign in request
+app.get("/login", function (req, res) {  
+    res.render("login");
+});
+
+
+////////////
+///IMPORTANT
+///////////
+//Handle login logic
+app.post("/login", passport.authenticate('local',
+    {
+        successRedirect:"/index",
+        failureRedirect:"/login"
+    }) ,function (req, res) {  
+
+});
+
+//Add logout route
+app.get("/logout", function (req, res) { 
+    req.logout();
+    res.redirect("/index");
+});
+
+
+function isLoggedIn(req, res, next) {
+    if(req.isAuthenticated()){
+        return next;
+    }else{
+        res.redirect("/login");
+    }
+}
+
 
 app.listen(3000, function () {  
     console.log("Project works fine");
