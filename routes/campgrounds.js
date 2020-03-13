@@ -29,35 +29,41 @@ router.get("/index", function (req, res) {
 });
 
 
+// NEW------->Show form to create new campground
+router.get("/index/new",isLoggedIn, function (req, res) { 
+    //This is the place to fill the form
+    res.render("campgrounds/new");
+ });
+
+
  // CREATE-----> add new campground
- router.post("/index", function (req, res) {
+ router.post("/index",isLoggedIn, function (req, res) {
     //Get data from form and add it to campgrounds array
     //Redirect back to campgrounds list page
 
+    //req.body will give us the content of the form which we filled
     var name = req.body.name;
     var url = req.body.image;
     var desc = req.body.desc;
-    var newcampground = {Name:name, Image:url, Desc:desc};
+    var author = {
+        id : req.user._id,
+        username : req.user.username
+    };
+    console.log(req.user);
+    var newcampground = {Name:name, Image:url, Desc:desc, Author: author};
 
     Campground.create(newcampground, function (err, newcamp) { 
         if(err){
             console.log(err);
         }else{
             console.log("New Campground added");
-            console.log(newcamp);
+            // console.log(newcamp);
         }
     });
 
     res.redirect("/index");
 
 });
-
-
-// NEW------->Show form to create new campground
-router.get("/index/new", function (req, res) { 
-    //This is the place to fill the form
-    res.render("campgrounds/new");
- });
 
 
 //SHOW -- show more information for the perticular id

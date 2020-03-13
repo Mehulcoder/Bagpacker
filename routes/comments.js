@@ -10,7 +10,8 @@ var Comment = require("../models/comment");
 
 //Comments New
 router.get("/index/:id/comments/new", isLoggedIn, function (req, res) { 
-    console.log(req.params.id);
+    // console.log("Helllllllllllloo:");
+    // console.log(req);
     Campground.findById(req.params.id, function (err, campground) { 
         if (err) {
             console.log(err);
@@ -38,8 +39,12 @@ router.get("/index/:id/comments/new", isLoggedIn, function (req, res) {
                     console.log(err);
                     req.redirect("/index");
                 }else{
+                    comment.author.id = req.user._id;
+                    comment.author.username = req.user.username;
+                    comment.save();
                     campground.Comments.push(comment);
                     campground.save();
+                    console.log(comment);
                     res.redirect("/index/"+campground._id);
                 }
                 });

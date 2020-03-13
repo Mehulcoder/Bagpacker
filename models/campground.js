@@ -4,6 +4,15 @@ var campgroundSchema = new mongoose.Schema({
     Name: String,
     Image: String,
     Desc: String,
+    Author: {
+        id: {
+            type: mongoose.Schema.Types.ObjectId,
+            //For refrence name go to the user.js schema and check (mongoose.model("User", UserSchema);)
+            //It's written "User" there
+            ref: "User"
+        },
+        username:String
+    },
     Comments: [
         {
             type:mongoose.Schema.Types.ObjectId,
