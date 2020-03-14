@@ -14,6 +14,8 @@ var seedDB = require("./seeds");
 var commentRoutes = require("./routes/comments");
 var campgroundRoutes = require("./routes/campgrounds");
 var authRoutes = require("./routes/index");
+var methodOverride = require("method-override");
+var ejsLint = require('ejs-lint');
 
 
 // Connect mongoose
@@ -21,6 +23,7 @@ mongoose.connect("mongodb://localhost:27017/yelp_camp", {useNewUrlParser: true, 
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname+"/public"));
+app.use(methodOverride("_method"));
 // console.log(__dirname);
 app.set("view engine", "ejs");
 
