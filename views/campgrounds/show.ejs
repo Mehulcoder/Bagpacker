@@ -20,8 +20,12 @@
                      <em> Submitted By: <%= campground.Author.username %> </em> 
                   </p>
                    <% if(currentUser && campground.Author.id.equals(currentUser._id)){ %> 
-                     <a class="btn btn-xs btn-warning" href="/index/<%= campground._id %>/edit">Edit</a>
-                   <% } %> 
+                     <a class="btn btn-sm btn-warning" href="/index/<%= campground._id %>/edit">Edit</a>
+                     <form style="display: inline" class="form-inline" action="/index/<%=campground._id%>?_method=DELETE" method="POST">
+                        <button class="btn btn-sm btn-danger">Delete</button>
+                     </form>
+                     <% } %> 
+                   
               </div>
            </div>
            <div class="card card-body bg-light">
