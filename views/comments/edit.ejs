@@ -1,0 +1,41 @@
+<%- include("../partials/header") %> 
+
+<div class="container">
+    <!-- Heading -->
+    <h1 class="d-flex justify-content-center mt-4">Edit <%= campground.Name %> </h1>
+<!-- Form starts here -->
+    <div class="form-group">
+        <form action="/index/<%=campground._id %>/comments/<%= comment._id %>?_method=PUT" method="POST" >
+            <div class="row justify-content-center">
+                <div class="col-4 align-self-center mb-2">
+                    <!-- Two inputs will be taken -->
+                    <input type="text" name="comment[content]" placeholder="Text" class="form-control mb-1" value="<%=comment.content%>">
+                    
+                    <!-- <input type="text" name="comment[author]" placeholder="Author" class="form-control mb-1"> -->
+                </div>
+            </div>
+            
+            <!-- The button to redirect the page and submit the form -->
+            <div class="row justify-content-center">
+                <div class="col-4">
+                    <button type="button justify-content-center" class="btn btn-primary btn-block">Submit</button>
+                </div>
+            </div>
+
+            <!-- Link to go back -->
+            <div class="row">
+                <div class="col-4">
+                </div>
+                <div class="col-4">
+                    <a href="/index"> Go back </a>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    
+</div>
+
+
+<%- include("../partials/footer") %> 
