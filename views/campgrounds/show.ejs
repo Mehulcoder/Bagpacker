@@ -41,12 +41,12 @@
                        <p class="mb-0">
                           <%= comment.content %>
                        </p>
-                       
+                       <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
                         <a class="btn btn-sm btn-warning" href="/index/<%= campground._id %>/comments/<%= comment._id%>/edit ">Edit</a>
                         <form action="/index/<%=campground._id%>/comments/<%= comment._id %>?_method=DELETE" method="POST" id="delete-form" style="display: inline" class="form-inline" >
                            <button class="btn btn-sm btn-danger">Delete</button>
                         </form>
-                       
+                        <% } %>
                     </div>
                  </div>
               <% }) %>
