@@ -19,7 +19,7 @@ var ejsLint = require('ejs-lint');
 
 
 // Connect mongoose
-mongoose.connect("mongodb+srv://Mehul:Mehul_007@cluster0-brhdg.mongodb.net/test?retryWrites=true&w=majority",
+mongoose.connect("mongodb+srv://Mehul:@cluster0-brhdg.mongodb.net/test?retryWrites=true&w=majority",
 {useNewUrlParser: true, useUnifiedTopology: true});
 
 // mongoose.connect("mongodb://localhost/yelp_camp", {useNewUrlParser: true, useUnifiedTopology: true});
